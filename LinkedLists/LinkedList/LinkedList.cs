@@ -1,43 +1,44 @@
-﻿
-namespace Arruda.LinkedList;
+﻿namespace Arruda.LinkedList;
 
-public class LinkedListNodes
+public class LinkedListNode
 {
     public int Value { get; set; }
-    public LinkedListNodes? Next { get; set; }
+    public LinkedListNode? Next { get; set; }
 }
 
 public class LinkedList
 {
-    public List<LinkedListNodes> LinkedListCol { get; set; }
-
-    public LinkedList()
-    {
-        LinkedListCol = [];
-    }
+    public LinkedListNode _linkedListNode { get; set; }
 
     public void Add(int value)
     {
-        var newNode =
-            new LinkedListNodes() { Value = value, Next = null };
+        var newNode = new LinkedListNode() { Value = value, Next = null };
 
-        if (LinkedListCol.Count == 0)
+        if (_linkedListNode == null)
         {
-            LinkedListCol.Add(newNode);
+            _linkedListNode = newNode;
         }
         else
         {
-            var temp = LinkedListCol.Last();
+            var temp = _linkedListNode;
 
+            while (temp.Next != null)
+            {
+                temp = temp.Next;
+            }
             temp.Next = newNode;
         }
     }
 
     internal void WriteAll()
     {
-        foreach (var node in LinkedListCol)
+        var temp = _linkedListNode;
+
+        while (temp.Next != null)
         {
-            Console.Write($"Value: {node.Value} Next=> {node.Next?.Value}  |  ");
+            Console.Write($"Value: {temp.Value} Next => {temp.Next?.Value}  |  ");
+            temp = temp.Next;
         }
+
     }
 }
